@@ -6,6 +6,7 @@ How long does it take to read through all the comments on a ticket?
   + This is the "Previous" value
 - Estimated time for the end-user to read the current comment the agent is adding to the ticket.
   + This is the "Yours" value
+  + The words per minute value is an estimate taken from [Wikipedia.](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
 
 Please submit bug reports to [Jeremiah](https://github.com/jeremiahcurrier) or [Joe](https://github.com/jstjoe). Pull requests are always welcome.
 
