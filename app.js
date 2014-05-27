@@ -1,4 +1,5 @@
 (function() {
+
   return {
     requests: {
         fetchUser: function () {
