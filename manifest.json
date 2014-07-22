@@ -1,9 +1,8 @@
 {
   "name": "Minutes to Read",
   "author": {
-    "name": "Jeremiah & Joe",
-    "email": "jcurrier@zendesk.com",
-    "url": "https://github.com/jstjoe/minutes_to_read"
+    "name": "Zendesk Labs",
+    "email": "zendesklabs@zendesk.com"
   },
   "defaultLocale": "en",
   "private": true,
