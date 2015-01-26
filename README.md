@@ -11,4 +11,9 @@ How long does it take to read through all the comments on a ticket?
 Please submit bug reports to [Jeremiah](https://github.com/jeremiahcurrier) or [Joe](https://github.com/jstjoe). Pull requests are always welcome.
 
 ### Screenshot(s):
+
 ![](http://i.imgur.com/Ps5mF95.png)
+
+### Known Issue
+
+1. The app separates words by spaces - this means if you have a wall of non-space-separated text that will then be considered a single word
