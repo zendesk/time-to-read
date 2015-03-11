@@ -17,3 +17,7 @@ Please submit bug reports to [Jeremiah](https://github.com/jeremiahcurrier) or [
 ### Known Issue
 
 1. The app separates words by spaces - this means if you have a wall of non-space-separated text that will then be considered a single word
+
+##### Look for this in the Zendesk Apps Marketplace
+
+[Imgur](http://i.imgur.com/UjexmDD.png)
