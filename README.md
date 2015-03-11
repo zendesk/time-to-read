@@ -10,7 +10,7 @@ How long does it take to read through all the comments on a ticket?
 
 Please submit bug reports to [Jeremiah](https://github.com/jeremiahcurrier) or [Joe](https://github.com/jstjoe). Pull requests are always welcome.
 
-### Screenshot(s):
+### Demo
 
 ![](http://i.imgur.com/Ps5mF95.png)
 
