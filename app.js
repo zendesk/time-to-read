@@ -23,13 +23,17 @@
       console.log("FAIL");
     },
      minRead: function() {
-      var wordsPerMinute = this.setting('endUserSpeed'), // how fast most people can read on a monitor according to [Wikipedia](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
-          currentComment = this.comment().text(), // the text of the current comment being entered
-          words = currentComment.split(' '), // substring array of each word in the comment
-          length = words.length, // size of the array
-          time = length / wordsPerMinute, // how many minutes to read floating point integer
-          minutes = Math.round(time), // how many minutes to read rounded up to nearest integer
-          string;
+      if (this.ticket().comment().text() !== undefined) {
+        var wordsPerMinute = this.setting('endUserSpeed'), // how fast most people can read on a monitor according to [Wikipedia](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
+            currentComment = this.comment().text(), // the text of the current comment being entered
+            words = currentComment.split(' '), // substring array of each word in the comment
+            length = words.length, // size of the array
+            time = length / wordsPerMinute, // how many minutes to read floating point integer
+            minutes = Math.round(time), // how many minutes to read rounded up to nearest integer
+            string;
+      } else {
+        var minutes = 0;
+      }
       if (minutes < 1) {
         string = 'less than 1';
       } else {
