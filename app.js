@@ -1,66 +1,58 @@
 (function() {
 
   return {
+
+    // This is how fast most people can read on a monitor according to 
+    // [Wikipedia](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
+    END_USER_WPM: this.setting('endUserSpeed'),
+    AGENT_WPM: this.setting('agentSpeedDefault'),
+
     requests: {
       fetchUser: function () {
-        var currentUser = this.currentUser();
-        var currentUserID = currentUser.id();
         return {
-          url: '/api/v2/users/' + currentUserID + '.json',
+          url: '/api/v2/users/' + this.currentUser().id() + '.json',
           type: 'GET',
         };
       }
     },
+
     events: {
-      'app.activated':'minRead',
-      'fetchUser.done': 'success',
-      'fetchUser.fail': 'failure'
+      'app.activated':'calculateTimeToRead'
     },
-    success: function(data) {
-      console.log(data.user.user_fields.words_per_minute);
-    },
-    failure: function(data) {
-      console.log("FAIL");
-    },
-     minRead: function() {
+
+    calculateTimeToRead: function() {
+      // calculate the time it takes to read the agent's comment
+      var agentCommentTime, previousCommentsTime, timeToRead;
+
       if (this.ticket().comment().text() !== undefined) {
-        var wordsPerMinute = this.setting('endUserSpeed'), // how fast most people can read on a monitor according to [Wikipedia](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
-            currentComment = this.comment().text(), // the text of the current comment being entered
-            words = currentComment.split(' '), // substring array of each word in the comment
-            length = words.length, // size of the array
-            time = length / wordsPerMinute, // how many minutes to read floating point integer
-            minutes = Math.round(time), // how many minutes to read rounded up to nearest integer
-            string;
+        var commentWordCount = this.comment.text().split(' ').length;
+        timeToRead = Math.round(commentWordCount/this.END_USER_WPM);
       } else {
-        var minutes = 0;
+        timeToRead = 0;
       }
-      if (minutes < 1) {
-        string = 'less than 1';
+
+      if (timeToRead < 1) {
+        agentCommentTime = 'less than 1';
       } else {
-        string = minutes;
+        agentCommentTime = timeToRead; 
       }
-      this.switchTo('show', {
-        minReadRounded: string,
+      
+      // calculate the time it takes to read all previous comments
+      var ticketComments = this.ticket().comments();
+      var previousCommentsWordCount = _.map(ticketComments, function (comment) { return comment.value(); }).join().split(' ').length;
+      timeToRead = Math.round(previousCommentsWordCount/this.AGENT_WPM);
+          
+      if (timeToRead < 1) {
+        previousCommentsTime = 'less than 1';
+      } else {
+        previousCommentsTime = timeToRead;
+      }
+
+      // display the data
+      this.switchTo('main', {
+        agentCommentTime: agentCommentTime,
+        previousCommentsTime: previousCommentsTime,
       });
-      var string2,
-          ticket = this.ticket(),
-          ticketComments = ticket.comments(),
-          ticketCommentsMap = _.map(ticketComments, function(comment){ return comment.value(); }), // array of substrings where each substring is an entire comment on the ticket
-          ticketCommentsMapJoined = ticketCommentsMap.join(), // turn ticketCommentsMap into an entire string of all comments together
-          ticketCommentsMapJoinedSplit = ticketCommentsMapJoined.split(' '), // turn ticketCommentsMapJoined into array of substrings, all words
-          ticketCommentsMapJoinedSplitSize = ticketCommentsMapJoinedSplit.length, // number of substrings/words in ticketCommentsMapJoinedSplit
-          test2 = ticketCommentsMapJoinedSplitSize / this.setting('agentSpeedDefault'), // how many minutes to read floating point integer
-          minReadRoundedAll = Math.round(test2); // how many minutes to read rounded up to nearest integer
-      if (minReadRoundedAll < 1) {
-        string2 = 'less than 1';
-      } else {
-        string2 = minReadRoundedAll;
-      }
-      this.switchTo('show', {
-        minReadRounded: string,
-        minReadRoundedAll: string2,
-      });
-      // this.ajax('fetchUser');
     }
   };
 }());
