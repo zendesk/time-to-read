@@ -7,27 +7,6 @@
     }
   },
 
-  "yours": {
-    "value": "Yours",
-    "title": "Yours"
-  },
-
-  "previous": {
-    "value": "Previous",
-    "title": "Previous"
-  },
-
-  "fetch": {
-    "done": {
-      "value": "Good",
-      "title": "fetch success"
-    },
-    "fail": {
-      "value": "failed to fecth information from the server",
-      "title": "fetch failure"
-    }
-  },
-
   "id": {
     "value": "ID",
     "title": "user id"
