@@ -3,7 +3,8 @@
   return {
 
     events: {
-      'app.activated':'calculateTimeToReadTicketComments'
+      'app.activated':'calculateTimeToReadTicketComments',
+      'app.willDestroy':function () { clearInterval(this.pollingInterval); }
     },
 
     calculateTimeToReadTicketComments: function () {
@@ -32,7 +33,7 @@
 
       this.calculateTimeToReadAgentComment();
 
-      setInterval(function () {
+      this.pollingInterval = setInterval(function () {
         this.calculateTimeToReadAgentComment();
       }.bind(this), 5000);
 
