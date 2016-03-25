@@ -8,12 +8,9 @@
     },
 
     calculateTimeToReadTicketComments: function () {
-      var AGENT_WPM = this.setting('agentSpeedDefault');
-
-      // calculate the time it takes to read the end user's comment
-      var previousCommentsTime, timeToRead;
-      
       // calculate the time it takes to read all previous comments
+      var AGENT_WPM = this.setting('agentSpeedDefault');
+      var previousCommentsTime, timeToRead;
       var ticketComments = this.ticket().comments();
       var previousCommentsWordCount = _.map(ticketComments, function (comment) { return comment.value(); }).join().split(' ').length;
       timeToRead = Math.round(previousCommentsWordCount/AGENT_WPM);
@@ -22,7 +19,7 @@
       if (timeToRead < 1) {
         this.previousCommentsTime = 'less than 1 minute';
       } else {
-        if (timeToRead > 1) { unit = unit + "s"; }
+        unit = unit + "s";
         this.previousCommentsTime = timeToRead + unit;
       }
 
@@ -31,8 +28,10 @@
         previousCommentsTime: this.previousCommentsTime
       });
 
+      // calculate the time it takes to read the end user's comment
       this.calculateTimeToReadAgentComment();
 
+      // poll the agent's comment every 5 seconds
       this.pollingInterval = setInterval(function () {
         this.calculateTimeToReadAgentComment();
       }.bind(this), 5000);
@@ -47,6 +46,7 @@
       // calculate the time it takes to read the agent's comment
       var agentCommentTime, timeToRead;
 
+      // the ticket comment text attribute will be undefined when the field is empty
       if (this.ticket().comment().text() !== undefined) {
         var commentWordCount = this.comment().text().split(' ').length;
         timeToRead = Math.round(commentWordCount/END_USER_WPM);

@@ -2,8 +2,7 @@
   "name": "Minutes to Read",
   "author": {
     "name": "Zendesk Labs",
-    "email": "zendesklabs@zendesk.com",
-    "url": "www.zendesk.com"
+    "email": "zendesklabs@zendesk.com"
   },
   "defaultLocale": "en",
   "private": false,
