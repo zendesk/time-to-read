@@ -1,0 +1,11 @@
+<div id="ticketCommentsTime">
+  <h4>Ticket: <span class="muted">{{previousCommentsTime}} to read</span></h4>
+</div>
+
+<div id="agentCommentTime">
+  <h4>Your comment: 
+  <span class="muted">
+    <span id="time"></span>
+      to read</span>
+    </h4>
+</div>
