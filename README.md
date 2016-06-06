@@ -1,5 +1,7 @@
 # Minutes to Read App
 
+## Description:
+
 How long does it take to read through all the comments on a ticket?
 
 - Estimated time for the agent to read all current comments on the ticket. (Not including the current comment they are adding)
@@ -10,7 +12,7 @@ How long does it take to read through all the comments on a ticket?
 
 Please submit bug reports to [Jeremiah](https://github.com/jeremiahcurrier) or [Joe](https://github.com/jstjoe). Pull requests are always welcome.
 
-### Demo
+## Screenshot(s):
 
 ![](http://i.imgur.com/Ps5mF95.png)
 
