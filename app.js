@@ -4,7 +4,8 @@
 
     events: {
       'app.activated':'calculateTimeToReadTicketComments',
-      'app.willDestroy':function () { clearInterval(this.pollingInterval); }
+      'app.willDestroy':function () { clearInterval(this.pollingInterval); },
+      'click #get_support_button': 'showLabsDeflection'
     },
 
     calculateTimeToReadTicketComments: function () {
@@ -14,7 +15,7 @@
       var ticketComments = this.ticket().comments();
       var previousCommentsWordCount = _.map(ticketComments, function (comment) { return comment.value(); }).join().split(' ').length;
       timeToRead = Math.round(previousCommentsWordCount/AGENT_WPM);
-          
+
       var unit = " minute";
       if (timeToRead < 1) {
         this.previousCommentsTime = 'less than 1 minute';
@@ -39,7 +40,7 @@
     },
 
     calculateTimeToReadAgentComment: function () {
-      // This is how fast most people can read on a monitor according to 
+      // This is how fast most people can read on a monitor according to
       // [Wikipedia](http://en.wikipedia.org/wiki/Words_per_minute#Reading_and_comprehension)
       var END_USER_WPM = this.setting('endUserSpeed');
 
@@ -59,7 +60,7 @@
         agentCommentTime = 'less than 1 minute';
       } else {
         if (timeToRead > 1) { unit = unit + "s"; }
-        agentCommentTime = timeToRead + unit; 
+        agentCommentTime = timeToRead + unit;
       }
 
       this.updateTime(agentCommentTime);
@@ -68,6 +69,16 @@
 
     updateTime: function (agentCommentTime) {
       this.$('#time').html(agentCommentTime);
+    },
+
+    showLabsDeflection: function(event){
+      event.preventDefault();
+      var help_link = helpers.fmt("%@/issues", this.author.email);
+      this.$('.labs_support').modal({ //   Fires a modal to display the string that will be redacted and how many times it appears on the ticket.
+              backdrop: true,
+              keyboard: false,
+              button_data: this.$("#create_git_issue").attr("href", help_link)
+      });
     }
 
   };

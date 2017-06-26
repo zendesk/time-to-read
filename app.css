@@ -5,3 +5,12 @@ footer p {
 .calculate {
   margin-top: 10px;
 }
+
+footer {
+    clear: both;
+    margin-top: 10px;
+}
+
+footer a {
+    float: right;
+}

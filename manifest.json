@@ -2,7 +2,8 @@
   "name": "Minutes to Read",
   "author": {
     "name": "Zendesk Labs",
-    "email": "zendesklabs@zendesk.com"
+    "email": "https://github.com/zendesklabs/time-to-read/issues",
+    "url": "https://github.com/zendesklabs/time-to-read"
   },
   "defaultLocale": "en",
   "private": false,
